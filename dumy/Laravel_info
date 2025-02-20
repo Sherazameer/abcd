@@ -1,0 +1,58 @@
+echo %PATH% ---------->composer check all version
+(01) composer global requir laravel/installer
+composer --version
+(02) laravel new example-name
+composer create-project --prefer-dist laravel/laravel Ecomerce
+chmod -R 775 storage bootstrap/cache
+php artisan serve
+php artisan ---> show all command list work
+php artisan route -h -----> check rout url
+php artisan route:list  ----->check rout list 
+php artisan route:list --except-vendor u creat rout
+php artisan route:list --path=post
+cd /opt/lampp && sudo ./manager-linux-x64.run 
+
+php artisan make:controller TestingController --invokable
+php artisan make:controller TodoController 
+php artisan migrate
+php artisan migrate:status
+php artisan migrate --force
+php artisan migrate:rollback
+php artisan migrate --stap=2    ---->exampal id depend table 
+php artisan migrate --batch=3
+
+php artisan migrate:reset    ---->not use this command 
+php artisan migrate:refresh
+php artisan migrate:fresh  again run 
+php artisan migrate:fresh --seed  again run
+php artisan make:model Task -m
+model create so not allow is database name  students just allow is student it means s is not allow
+
+php artisan make:migration create_students_table
+php artisan make:model City
+php artisan make:seeder StudentSeeder
+php artisan make:seeder CitySeeder
+
+php artisan db:seed    vallue inssert
+php artisan db:seed --class=UserSeeder example test
+
+mysql extension wajjen chen
+
+ casse migration table set name need s 
+set the table link in laravel framework
+$table->unsignedBigInteger('id');
+$table->foreign('City')->references('Cid')->on('City');
+
+$table->foreign('City_id')->reference('cid')->on('City')->onUpdate('cascade');
+                                                                      set null
+$table->foreign('City_id')->reference('cid')->on('City')->onDelete('cascade');
+enter the views directory and create folder pages and create some file (header,siderbar,footer.blade.php).
+so will be use some file in home.blade.php and  
+@include('pages.header'),
+@include('pages.siderbar')
+@include('pages.footer')
+cd /home/goodisone/learn/resources/views/
+
+
+ssid zong4g-237d
+wifi key 60136179

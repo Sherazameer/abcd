@@ -1,0 +1,68 @@
+node -v
+npm -v
+sudo npm install -g @angular/cli
+ng v 
+root@192:/home/ictvision# mkdir angular.tut
+sudo rm -r angular.tut/
+mkdir angular --->create folder then enter angular folder
+ng new learn  ---> install project
+ng serve --> run command
+➜  Local:   http://localhost:4200/
+
+
+ictvision@192:~$ sudo code --no-sandbox --user-data-dir=/path/to/alternate/user/data/directory
+ictvision@192:~$ whoami
+ictvision
+ictvision@192:~$ groups username
+groups: ‘username’: no such user
+ictvision@192:~$ id -u
+1000
+
+  API_URL: 'https://demo.ictfax.com/api',
+
+
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm --version
+node -v
+nvm install --lts
+nvm list
+nvm ls-remote
+nvm use v14
+nvm install v14 
+nvm install v16
+node -v
+nvm use v14.21.3 
+sudo npm install -g @angular/cli@13.0.0
+ng v  --->check angular version
+npm install
+
+npm start
+
+nvm use v14.21.3 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash	
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+nvm --version
+nvm install --lts
+nvm install 14
+nvm use 14
+node --version
+npm --version
+
+
+error remover 
+312         server?: HTTPServer<V> | HTTPSServer<V> | undefined;
+ictvision@192:~/angular/ictfax$ npm  install typescript@4.6.4
+ictvision@192:~/angular/ictfax$ npm  uninstall typescript@4.9.5
+
+
+npm show @nebular/theme version
+
+
+
+
+
+
+
+

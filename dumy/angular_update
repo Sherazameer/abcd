@@ -1,0 +1,213 @@
+
+{
+  "dependencies": {
+    "@angular/animations": "18.2.10",
+    "@angular/cdk": "18.2.11",
+    "@angular/common": "18.2.10",
+    "@angular/compiler": "18.2.10",
+    "@angular/compiler-cli": "18.2.10",
+    "@angular/core": "18.2.10",
+    "@angular/forms": "18.2.10",
+    "@angular/http": "7.2.16",
+    "@angular/platform-browser": "18.2.10",
+    "@angular/platform-browser-dynamic": "18.2.10",
+    "@angular/router": "18.2.10",
+    "@angular/service-worker": "18.2.10",
+    "@angular-devkit/architect": "0.1802.11",
+    "@angular-devkit/build-angular": "18.2.11",
+    "@angular-devkit/core": "18.2.11",
+    "@angular-devkit/schematics": "18.2.11",
+    "@schematics/angular": "18.2.11",
+    "rxjs": "7.8.1",
+    "typescript": "5.6.3",
+    "zone.js": "0.15.0"
+  }
+}
+
+
+npm uninstall @angular-devkit/core @angular-devkit/build-angular @angular-devkit/schematics @angular/cli
+
+npm install @angular-devkit/core@14.2.11 @angular-devkit/build-angular@14.2.11 @angular-devkit/schematics@14.2.11 @angular/cli@14.2.11
+
+ng update @angular/core@14 @angular/common@14 @angular/compiler@14 @angular/compiler-cli@14 @angular/forms@14 @angular/platform-browser@14 @angular/platform-browser-dynamic@14 @angular/router@14 @angular/service-worker@14
+
+
+npm uninstall @angular/core @angular/common @angular/compiler @angular/compiler-cli @angular/forms @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/service-worker
+
+npm install @angular/core@13.4.0 @angular/common@13.4.0 @angular/compiler@13.4.0 @angular/compiler-cli@13.4.0 @angular/forms@13.4.0 @angular/platform-browser@13.4.0 @angular/platform-browser-dynamic@13.4.0 @angular/router@13.4.0 @angular/service-worker@13.4.0
+
+
+
+    ng update @angular/core@14 @angular/cli@14
+
+    npm install @angular-devkit/core@14.2.11 @angular-devkit/build-angular@14.2.11 @angular-devkit/schematics@14.2.11 @angular/cli@14.2.11
+    
+    npm install @angular/common@14 @angular/compiler@14 @angular/compiler-cli@14 @angular/core@14 @angular/forms@14 @angular/platform-browser@14 @angular/platform-browser-dynamic@14 @angular/router@14 @angular/service-worker@14 --save
+    npm install typescript@4.7.4 --save-dev
+//    npm install rxjs@6.6.7 --save
+    npm install @schematics/angular@14.2.11 --save-dev
+
+    npm install @angular/material@14 --save
+npm install @angular/cdk@18.2.10 --save
+    npm install @angular/language-service@14.2.0 --save-dev
+    
+    
+    
+    ng update @angular/core@14 @angular/common@14 @angular/compiler@14 @angular/compiler-cli@14 @angular/forms@14 @angular/platform-browser@14 @angular/platform-browser-dynamic@14 @angular/router@14 @angular/service-worker@14
+	     ng update @angular/core@14 @angular/cli@14
+     
+     npm install @angular/common@14 @angular/compiler@14 @angular/compiler-cli@14 @angular/core@14 @angular/forms@14 @angular/platform-browser@14 @angular/platform-browser-dynamic@14 @angular/router@14 @angular/service-worker@14 --save
+     
+
+     
+     npm install @angular/common@15.2.10 @angular/compiler@15.2.10 @angular/compiler-cli@15.2.10 @angular/core@15.2.10 @angular/forms@15.2.10 @angular/platform-browser@15.2.10 @angular/platform-browser-dynamic@15.2.10 @angular/router@15.2.10 @angular/service-worker@15.2.10 --save
+
+     
+     npm install @angular-devkit/core@15.2.10 @angular-devkit/build-angular@15.2.10 @angular-devkit/schematics@15.2.10 @angular/cli@15.2.10
+     
+     
+  
+     npm install @angular/common@16.2.12
+     
+     npm install @angular/compiler@16.2.12
+      npm install @angular/compiler-cli@16.2.12
+      
+       npm install @angular/core@16.2.12
+        npm install @angular/forms@16.2.12 
+        
+        npm install @angular/platform-browser@16.2.12
+         npm install @angular/platform-browser-dynamic@16.2.12
+         
+          npm install @angular/router@16.2.12
+          
+           npm install @angular/service-worker@16.2.12
+
+     
+     npm install @angular-devkit/core@16.2.12
+     npm install @angular-devkit/build-angular@16.2.12
+      npm install @angular-devkit/schematics@16.2.12
+       npm install @angular/cli@16.2.12
+       
+     
+     npm install @angular/common@latest
+
+       
+          npm install @angular-devkit/architect@0.1702.10 @angular-devkit/build-angular@0.1702.10 @angular-devkit/core@0.1702.10 @angular-devkit/schematics@0.1702.10 --save-dev
+          
+          npm install @angular/core@18 @angular/common@18 @angular/compiler@18 @angular/forms@18 @angular/platform-browser@18 @angular/platform-browser-dynamic@18 @angular/router@18 @angular/service-worker@18 --save
+          
+          npm install @angular/cdk@latest @angular/material@latest --save
+          
+          npm install @angular/cli@latest --save-dev
+          
+          npm install
+
+
+          
+          npm install @angular/core@17.3.12 @angular/common@17.3.12 @angular/compiler@17.3.12 @angular/forms@17.3.12 @angular/platform-browser@17.3.12 @angular/platform-browser-dynamic@17.3.12 @angular/router@17.3.12 @angular/service-worker@17.3.12 --save
+          
+          
+          
+ng update @angular/core@18 @angular/cli@18 --force
+
+          npm install @angular/common@18 @angular/compiler@18 @angular/compiler-cli@18 @angular/core@18 @angular/forms@18 @angular/platform-browser@18 @angular/platform-browser-dynamic@18 @angular/router@18 @angular/service-worker@18 --save
+     
+
+
+
+npm install @angular-devkit/core@14.2.11 @angular-devkit/build-angular@14.2.11 @angular-devkit/schematics@14.2.11 @angular/cli@14.2.11
+Angular CLI: 14.2.11
+Node: 14.21.3
+Package Manager: npm 10.8.2 
+OS: linux x64
+
+
+
+ npm install @angular/common@14 @angular/compiler@14 @angular/compiler-cli@14 @angular/core@14 @angular/forms@14 @angular/platform-browser@14 @angular/platform-browser-dynamic@14 @angular/router@14 @angular/service-worker@14 --save
+
+Angular: 14.3.0
+... common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+... service-worker
+
+Package                         Version
+---------------------------------------------------------
+
+@angular-devkit/architect       0.1402.11
+@angular-devkit/build-angular   14.2.11
+@angular-devkit/core            14.2.11
+@angular-devkit/schematics      14.2.11
+@angular/animations             16.2.12
+@angular/cdk                    13.3.9
+@angular/cli                    14.2.11
+@angular/http                   7.2.16
+@angular/language-service       13.3.6
+@angular/material               13.3.9
+@schematics/angular             14.2.11
+rxjs                            6.6.7
+typescript                      4.8.4
+ 
+
+
+
+
+
+Angular: 14.3.0
+... common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+... service-worker
+
+
+npm install typescript@">=4.6.2 <4.9.0" --save-dev
+
+
+npm install -g typescript@5.2.0 --save-dev
+
+
+npm install typescript@5.3.0 --save-dev
+
+
+
+npm install @angular-devkit/core@17.1.x @angular-devkit/build-angular@17.1.x @angular-devkit/schematics@17.1.x @angular/cli@17.1.x
+Angular CLI: 17.1.4
+Node: 18.20.4
+Package Manager: npm 10.9.0
+OS: linux x64
+
+
+ npm install @angular/common@17.3.12 @angular/compiler@17.3.12 @angular/compiler-cli@17.3.12 @angular/core@17.3.12 @angular/forms@17.3.12 @angular/platform-browser@17.3.12 @angular/platform-browser-dynamic@17.3.12 @angular/router@latest @angular/service-worker@17.3.12 --save
+ 
+ npm install --save @angular/animations@17.1.x @angular/common@17.1.x @angular/compiler@17.1.x @angular/core@17.1.x @angular/forms@17.1.x @angular/platform-browser@17.1.x @angular/platform-browser-dynamic@17.1.x @angular/router@17.1.x
+ 
+ npm install @angular/core@17 @angular/common@17 @angular/compiler@17 @angular/platform-browser@17 @angular/platform-browser-dynamic@17 @angular/animations@17 @angular/material@17 --save
+
+
+
+Angular: 17.1.3
+... common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+... service-worker
+
+Package                         Version
+---------------------------------------------------------
+@angular-devkit/architect       0.1701.4
+@angular-devkit/build-angular   17.1.4
+@angular-devkit/core            17.1.4
+@angular-devkit/schematics      17.1.4
+@angular/animations             16.2.12
+@angular/cdk                    13.3.9
+@angular/cli                    17.1.4
+@angular/http                   7.2.16
+@angular/language-service       13.3.6
+@angular/material               13.3.9
+@schematics/angular             17.1.4
+rxjs                            6.6.7
+typescript                      5.2.2
+zone.js                         0.11.8
+  
+                        Version
+---------------------------------------------------------
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+

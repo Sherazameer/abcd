@@ -1,0 +1,31 @@
+version: '3'
+services:
+  app:
+    image: sheraz762/laravel-fedora
+    volumes:
+      - odyssey-volume:/home/laravel-app  # Use the defined volume
+    ports:
+      - "8000:80"  # Change if needed
+    restart: always  # Ensure the container restarts automatically
+    networks:
+      - odyssey-network  # Connect to the custom network
+
+  xampp:
+    image: sheraz762/xampp-fedora
+    volumes:
+      - ~/lampp-htdocs:/opt/lampp/htdocs  # Use the new path
+    ports:
+      - "8081:80"
+    restart: always  # Ensure the container restarts automatically
+    networks:
+      - odyssey-network  # Connect to the custom network
+
+# Define the custom network
+networks:
+  odyssey-network:
+    driver: bridge  # Use the bridge driver
+
+# Define the volume
+volumes:
+  odyssey-volume:
+    driver: local  # Use the local driver

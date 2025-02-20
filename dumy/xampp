@@ -1,0 +1,107 @@
+wget "https://downloads.sourceforge.net/project/xampp/XAMPP%20Linux/8.2.4/xampp-linux-x64-8.2.4-0-installer.run?ts=gAAAAABnXSC...&use_mirror=onboardcloud"
+RUN curl -O https://downloadsapachefriends.global.ssl.fastly.net/xampp/8.2.12/xampp-linux-x64-8.2.12-0-installer.run && \
+
+xampp-linux-x64-8.2.4-0-installer.run?ts=gAAAAABnXSC...&use_mirror=onboardcloud
+mv 'xampp-linux-x64-8.2.4-0-installer.run?ts=gAAAAABnXSC...&use_mirror=onboardcloud' xampp-linux-x64-8.2.4-0-installer.run
+chmod a+x xampp-linux-x64-8.2.4-0-installer.run
+chmod +x xampp-linux-x64-8.2.4-0-installer.run
+sudo ./xampp-linux-x64-8.2.4-0-installer.run
+
+sudo dnf install libxcrypt-compat
+
+http://127.0.0.1
+
+
+sudo firewall-cmd --add-service=http --permanent
+sudo firewall-cmd --add-service=https --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd --state
+
+sudo /opt/lampp/lampp start
+cd /opt/lampp && sudo ./manager-linux-x64.run
+
+
+container
+ping -c 4 google.com
+docker cp xampp-linux-x64-8.2.4-0-installer.run festive_engelbart:/root/
+chmod +x /root/xampp-linux-x64-8.2.4-0-installer.run
+/root/xampp-linux-x64-8.2.4-0-installer.run
+./root/xampp-linux-x64-8.2.4-0-installer.run --mode unattended
+sudo netstat -tuln | grep ':80'
+sudo netstat -tuln
+sudo lsof -i :8080
+chmod +x /usr/bin/hostname
+
+which hostname
+nano /opt/lampp/etc/extra/httpd-xampp.conf
+
+<Directory "/opt/lampp/phpmyadmin">
+    AllowOverride AuthConfig Limit
+    Require all granted
+    ErrorDocument 403 /error/XAMPP_FORBIDDEN.html.var
+</Directory>
+
+dnf install -y coreutils
+dnf install -y inetutils
+whereis hostname
+dnf install -y procps-ng
+docker inspect serene --format='{{.State.ExitCode}}'
+
+fedora
+docker run -it --name serene -p 8081:80 -p 3307:3306 xampp-docker /bin/bash
+docker run -d -p 8081:80 -p 3307:3306 --name serene xampp-docker /bin/bash -c "/opt/lampp/lampp start && tail -f /dev/null"
+docker run -d -p 8081:80 --name xampp-fedora --hostname hostname xampp-docker /bin/bash -c "/opt/lampp/lampp start && tail -f /dev/null"
+
+
+./lampp status
+./lampp start
+./lampp stop
+/opt/lampp/sbin/mysqld --skip-grant-tables &
+ /opt/lampp/bin/mysql -u root
+ /opt/lampp/bin/mysql -h 172.21.0.2 -u root -p
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '' WITH GRANT OPTION;
+
+USE seza;
+SELECT * FROM users WHERE id = 3;
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password",
+    "password_confirmation": "password"
+}
+copy into main directory
+docker cp xampp-linux-x64-8.2.4-0-installer.run xampp:/root/
+============================================
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' legacy
+/opt/lampp/sbin/mysqld --skip-grant-tables --skip-networking &
+
+====================================
+docker xampp to laravel setup
+/opt/lampp/bin/mysql -u root
+SELECT User, Host FROM mysql.user;
+CREATE USER 'root'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+DB_CONNECTION=mysql
+DB_HOST=legacy-xampp
+DB_PORT=3306
+DB_DATABASE=legacy
+DB_USERNAME=root
+DB_PASSWORD=
+
+docker restart legacy_app_1
+docker restart legacy-xampp
+
+docker exec -it legacy_app_1 php artisan migrate
+
+
+legacy]$ docker-compose up -d
+docker logs legacy_xampp_1
+docker exec -it legacy_xampp_1 ls /opt/lampp/phpmyadmin
+http://localhost:8081/phpmyadmin
+
+
+sudo dnf install -y curl policycoreutils openssh-server openssh-clients perl
+curl -LO https://packages.gitlab.com/gitlab/gitlab-ee/packages/fedora/34/gitlab-ee-15.0.0-1.el7.x86_64.rpm/download.rpm

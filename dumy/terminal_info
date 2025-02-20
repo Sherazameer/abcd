@@ -1,0 +1,93 @@
+                    basic comman command in linux                 
+    show commands list             
+    commands:>                                                                  commands:>
+    man cat                             check any spacefice command about information                 
+    uptime                              check any crunt user
+    id                                  check user identite                                           
+    lsusb                     --------->check device conact 
+    lspci                               pci bus information check                                 
+    ulimit                              unlimited
+    wc test.txt              ---------- check word information                      
+    lsblk                     --------->check system information
+    tac                  -------------->reverce text                                        
+    whoami 
+    sudo su   whoami            -------->root enter                                      
+    passwd                     ----------->Changing password for user root.
+    date                                                                        
+    uname
+    dnf-get update                                                              
+    tree
+    ls -l                                                                       
+    ls -a                        ------->show all hidden fille
+    ls -al                     --------->permisssion show                                           
+    xdg-open 23.mp4                      open video
+    eog see.png                          open image file
+    mkdir                   name-------> folder create                                          
+    hostnamectl 
+    netstat -a                                                                  
+    chromium-browser
+    nano ~/.bashrc
+    route -n
+    ifconfig
+    mkdir name1 name2 name3               ------->multipal folder create   and then sapace name1 name2 name3
+    rmdir   name                          --------->delete folder
+    rmdir    name1 name2 name3            ------>delete mulipal folder and then sapace name1 name2 name3  ----  laravel 
+    rm -r Basic                           ------>delete folder
+    mv        safafdf thebig              ---->change folder name and the reall name enter and space rename
+    mv       test.txt testing             --------> change file name 
+    mv       test.txt  /Documents         -------->file and folder sen new directory
+    touch    cyber                        ------> create fille name                  
+    rm        cyber.txt                   ----->remove file
+    cal                                   ---->calender open
+    cp    test.tx Desktop/Download        ------>copy to move new directory file
+    echo hello , echo "hello" , echo hello>test.txt   ---> show text word      
+    head                    top line read
+    tail                   botom line readabal                                 
+    sort  test 
+    cat test.txt                         -------->read any file                     
+    more  test.txt                       ------ big read file 
+    more -h  help                                                             
+    less test.txt                        -----big read file  
+    vi , vim , nano                      ------->open this any file                     
+    cat test | grep 'public'             --------->searching words
+    free                                 ----------> check my data                      
+    df                                   ---------> information check 
+    df  --help                           ------->check all information about related function    
+    ps                                   ---->active status prosess
+    ps aux                               ------> all about check status runing time                 
+    od -b test
+    od -c test  haxza                                                            
+    od -tx1  amercian    
+    sleep 30sec                        -------->hold time and not porfom activity                     
+    ufw                                -------->show app list
+    vs code ctr+shift+e                ------>side file open                              
+    ctr+b                              --->sidepanal  
+    udo dnf install kf5-kcompletion kf5-kcoreaddons kf5-ki18n kf5-kio  ----ktouch
+    sudo dnf update | cut -d']' -f2- --------> remove  sudo dnf update[ block goodisone@she ~]$ 
+
+find ./ -name test.php  ----->how to find file in linux
+updatedb but update database in linx
+locate test.php
+which ls ---> command check file
+script   ----> use all avteivaty
+cat typescript  ----> show all work
+alias l="ls -ltr"  [l]--> check permission 
+alias -p 
+gzip -k file , gunzip file  ----> zip
+tar -czf myfiles.tar.gz myfiles/   how to compress
+tar -xzf myfiles.tar.gz myfiles/   how to compress
+wget url    adress  download
+rpm -qa | grep app name      how to check application name install
+ rpm -qa | grep nginx     
+ dnf list installed | grep php    check packeg name
+ dnf list installed  ----> already packeg
+ dnf list available  ===> check all packeg
+ systemctl status firewalld.service    check service
+ systemctl list-units --type=service --all ------>check all services
+printenv
+     neofetch,  screenfetch  system information
+
+1:52
+
+
+
