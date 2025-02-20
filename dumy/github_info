@@ -1,0 +1,27 @@
+
+git pull
+git init
+git add *
+git status
+git commit -m"Did Number Configuration"
+git push
+git log
+
+git branch
+git checkout
+git checkout origin/HEAD 
+git checkout master
+git branch -all
+git fetch
+git branch
+git fetch --all
+git checkout master
+git log
+
+ git log --oneline
+ git reset 82eb127
+git reset
+git restore
+git stash
+git stash pop
+git add core/Account.php
