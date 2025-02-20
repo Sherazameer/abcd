@@ -1,0 +1,33 @@
+Start MySQL in Safe Mode: Start MySQL in safe mode to bypass the privilege system:
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+
+mysql -u todow -p
+password 1234
+
+mysql -u root
+
+RENAME USER 'todow'@'localhost' TO 'root'@'localhost';
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('sherazameer');
+FLUSH PRIVILEGES;
+
+
+
+
+
+sudo dnf install php-mysqli
+systemctl status mysql 
+sudo mysql
+
+
+CREATE DATABASE laravel;
+USE laravel;
+
+
+SHOW DATABASES;
+how to check 
+SELECT User, Host FROM mysql.user;
+how to delete
+DROP USER 'root'@'localhost';
+
+
+EXIT;

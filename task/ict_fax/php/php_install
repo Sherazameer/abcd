@@ -1,0 +1,25 @@
+
+sudo dnf install php
+sudo systemctl start httpd
+
+sudo apachectl start
+[Start Apache web server]
+
+sudo apachectl stop
+[Stop Apache web server]
+
+sudo apachectl restart
+[Restart Apache web server]
+
+sudo apachectl graceful
+[Gracefully Restart Apache web server]
+
+sudo apachectl configtest
+[Check Apache Configuration]
+
+sudo apachectl -V
+[Check Apache Version]
+
+sudo apachectl status
+[Check Apache Status]
+

@@ -1,0 +1,82 @@
+<nb-card>
+  <nb-card-header>
+    {{ 'sheraz_contact.list' | translate}}
+    <input style="float:right" class="form-control cc" type="text" #filter placeholder="{{ 'sheraz_contact.filter' | translate}}">
+  </nb-card-header>
+
+  <nb-card-body>
+    <button type="button" mat-raised-button color="primary" style="font-size:15px"
+     [routerLink]="['/pages/sheraz/sheraz/new']"><i class="fa fa-plus"></i>
+      {{ 'sheraz_contact.add' | translate}}</button>
+
+    <br>
+    <br>
+    <div class="example-container mat-elevation-z8">
+      <mat-table #table [dataSource]="aContact" matSort>
+        <ng-container matColumnDef="ID">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'general.ID' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let contact">
+            {{contact.contact_id}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'contact.fname' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let contact" style="text-align:left">
+            {{contact.first_name}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'contact.lname' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let contact" style="text-align:left">
+            {{contact.last_name}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Phone" style="text-align:left">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="text-align:left">{{ 'contact.phone' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let contact" style="text-align:left">
+            {{contact.phone}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Email" style="text-align:left">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="text-align:left">{{ 'contact.email' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let contact" style="text-align:left">
+            {{contact.email}}
+          </mat-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="Operations">
+          <mat-header-cell *matHeaderCellDef>{{ 'general.operations' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let contact">
+
+
+            <button mat-icon-button color="accent" style= "font-size:20px">
+              <mat-icon><a routerLink="/pages/sheraz/sheraz/{{contact.contact_id}}" title="Edit"><nb-icon icon="edit-2-outline"></nb-icon></a></mat-icon>
+            </button>
+
+
+            <!-- <button mat-icon-button style="font-size:20px">
+              <mat-icon style="color:red" (click)="showStaticModal(deleteTemplate,contact.first_name, contact.contact_id)"><nb-icon icon="trash-2-outline"></nb-icon></mat-icon>&nbsp;
+
+            </button> -->
+            <button mat-icon-button style="font-size:20px">
+              <mat-icon
+                style="color:red"
+                (click)="deleteContact(contact.contact_id)">
+                <nb-icon icon="trash-2-outline"></nb-icon>
+              </mat-icon>
+            </button>
+
+
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row;columns:displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator #paginator
+        [length] = "length"
+        [pageIndex]="0"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div>
+  </nb-card-body>
+</nb-card>

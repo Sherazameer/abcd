@@ -1,0 +1,127 @@
+<div *ngIf="isError" class="ict_error">
+  <p *ngFor="let err of errorText">{{err}}</p>
+</div>
+
+<h3>{{ 'crud.add' | translate}}</h3>
+<div class="col-lg-12">
+<form id="form1" #f1="ngForm">
+<nb-card>
+    <nb-card-header>
+      {{ 'crud.personal_info' | translate}}
+    </nb-card-header>
+  <nb-card-body>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="first_name">{{ 'crud.fname' | translate}}:</label>
+            <input [(ngModel)]="crud.first_name" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="{{ 'crud.fname' | translate}}" id="first_name" required/>
+          </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="form-group">
+            <label for="last_name">{{ 'crud.lname' | translate}}:</label>
+            <input [(ngModel)]="crud.last_name" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="{{ 'crud.lname' | translate}}" id="last_name" required/>
+          </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>
+      {{ 'crud.title' | translate}}
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+          <label for="phone">{{ 'crud.phone' | translate}}:</label>
+            <input [(ngModel)]="crud.phone" [ngModelOptions]="{standalone: true}" type="phone" id="phone" class="form-control" pattern="[0-9]*" minlength="11" maxlength="16" #phone="ngModel" required/>
+            <div [hidden]="phone.valid || phone.pristine"
+            class="alert alert-danger">
+
+            <div [hidden]="!phone.hasError('required')">{{ 'crud.required_error' | translate}}</div>
+            <div [hidden]="!phone.hasError('pattern')">{{ 'crud.pattern_error' | translate}}</div>
+         </div>
+        </div>
+          </div>
+          <div class="col-sm-6">
+              <div class="form-group">
+            <label for="email">{{ 'crud.email' | translate}}:</label>
+              <input [(ngModel)]="crud.email" [ngModelOptions]="{standalone: true}" type="email" id="email" placeholder="{{ 'crud.email' | translate}}" class="form-control" #email="ngModel" required/>
+              <div class="md-errors-spacer" [hidden]="email.valid || email.untouched"
+              class="alert alert-danger">
+                <div  *ngIf="email.errors && email.errors.pattern">
+                  {{ 'crud.invalid_email' | translate}}
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    {{ 'crud.address' | translate}}
+  </nb-card-header>
+  <nb-card-body>
+      <div class="col-sm-12">
+          <div class="form-group">
+        <label for="address">{{ 'crud.address' | translate}}:</label>
+          <textarea [(ngModel)]="crud.address" [ngModelOptions]="{standalone: true}" type="text" id="address" placeholder="{{ 'crud.address' | translate}}" class="form-control" required></textarea>
+      </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+<nb-card>
+  <nb-card-header>
+    {{ 'crud.custom_data' | translate}}
+  </nb-card-header>
+  <nb-card-body>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="custom1">{{ 'crud.custom_1' | translate}}:</label>
+        <input [(ngModel)]="crud.custom1" [ngModelOptions]="{standalone: true}" type="text" id="custom1" class="form-control" required/>
+      </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+          <label for="custom2">{{ 'crud.custom_2' | translate}}:</label>
+          <input [(ngModel)]="crud.custom2" [ngModelOptions]="{standalone: true}" type="text" id="custom2" class="form-control" required/>
+        </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="form-group">
+            <label for="custom3">{{ 'crud.custom_3' | translate}}:</label>
+            <input [(ngModel)]="crud.custom3" [ngModelOptions]="{standalone: true}" type="text" id="custom3" class="form-control" required/>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+<nb-card>
+  <nb-card-header>
+    {{ 'crud.description' | translate}}
+  </nb-card-header>
+  <nb-card-body>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="description">{{ 'crud.description' | translate}}:</label>
+        <input [(ngModel)]="this.crud.description" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="description" required/>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<div *ngIf="(crud_id>0)">
+    <button type="button" class="btn btn-primary" (click)="updateCrud()">{{ 'buttons.update' | translate}}</button>
+</div>
+
+<div *ngIf="(!crud_id)">
+    <button type="button" class="btn btn-success" (click)="addCrud()">{{ 'buttons.submit' | translate}}</button>
+</div>
+</form>
+</div>
