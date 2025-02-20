@@ -1,0 +1,31 @@
+   ====>add new feature schedule. campaign control
+step 01       
+// campaign.ts 
+ add field parameters 
+
+  startDate: Date;
+  endDate: Date;
+<=======================>
+ step 02
+ campaign-document-component.ts
+ add new Properties
+   startDateStr: string;
+  startTimeStr: string;
+  endDateStr: string;
+  endTimeStr: string;
+  
+  Develop campaign_TimeRange function follow chart
+  
+    // Get the current date and time
+    // Calculate the end time, which is one hour from now
+    // Create Date objects for the campaign start and end dates
+  call this campaign_TimeRange function in
+  ngOnInit
+  and
+  addSendDocument,
+  updateCampaign
+<==========================>
+step 03
+  next html part 
+  create a nebular theme form use schedule.compaign
+ add field input type startDateStr,startTimeStr,, endDateStr,endTimeStr

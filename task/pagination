@@ -1,0 +1,129 @@
+ 
+ 
+
+ // public ngOnInit(): void {
+  //   this.getContactlist();
+  // }
+
+
+
+
+  // getContactlist(page: number = 1, size: number = this.pageSize) {
+  //   this.contact_service.get_ContactList().then(data => {
+  //     this.aContact = data;
+  //     this.totalItems = data.length;
+  //    this.ContactDataSource = this.dataSourceBuilder.create(data.map(item => ({ data: item })));
+
+
+  //     const start = (page - 1) * size;
+  //     const end = Math.min(start + size, data.length);
+  //     // this.displayedContacts = this.aContact.slice(start, end);
+  //     data = data.slice(start, end);
+  //     console.log('Sliced data:', data);
+
+
+
+  //   });
+  // }
+
+  // getContactlist(page: number = this.currentPage, size: number = this.pageSize) {
+  //   this.contact_service.get_ContactList().then(data => {
+  //     this.aContact = data;
+  //     // this.length = data.length;
+  //           this.totalItems = data.length; // Set totalItems
+
+  //     // this.ContactDataSource = this.dataSourceBuilder.create(data.map(item => ({ data: item })));
+
+  //     const start = (page - 1) * size;
+  //     const end = Math.min(start + size, this.aContact.length);
+  //     this.displayedContacts = this.aContact.slice(start, end)
+  //     // this.updateDisplayedContacts(); // Call to update displayed contacts
+
+  //   });
+  // }
+
+  // pageChanged(event: number) {
+  //   this.getContactlist(event);
+  // }
+
+  // onPageSizeChange(newSize: number) {
+  //   this.pageSize = newSize;
+  //   this.getContactlist(1, newSize); // Reset to page 1
+  // }
+
+
+  // getContactlist() {
+  //   this.contact_service.get_ContactList().then(data => {
+  //     this.aContact = data;
+  //     this.length = data.length;
+  //           this.totalItems = data.length; // Set totalItems
+
+  //     // this.ContactDataSource = this.dataSourceBuilder.create(data.map(item => ({ data: item })));
+
+
+  //     const startIndex = (this.currentPage - 1) * this.pageSize;
+  //     const endIndex = Math.min(startIndex + this.pageSize, this.aContact.length);
+  //     this.displayedContacts = this.aContact.slice(startIndex, endIndex);
+  //     // this.updateDisplayedContacts(); // Call to update displayed contacts
+
+  //   });
+  // }
+
+  //   public pageChanged(event: number): void {
+  //   this.currentPage = event;
+  //   console.log('Current Page:', this.currentPage); // Log the current page to verify it's being updated correctly
+  //   console.log('Current event:', event);
+  //   this.getContactlist();
+  // }
+
+  // onPageSizeChange(pageSize: number) {
+  //   this.pageSize = pageSize;
+  //   this.currentPage = 1; // Reset to page 1 when changing page size
+  //   this.getContactlist();
+  // }
+
+
+
+  // updateDisplayedContacts() {
+  //   const startIndex = (this.currentPage - 1) * this.pageSize;
+  //   const endIndex = Math.min(startIndex + this.pageSize, this.aContact.length);
+  //   this.displayedContacts = this.aContact.slice(startIndex, endIndex);
+  // }
+
+
+  // pageChanged(event: number): void {
+  //   this.currentPage = event;
+  //   console.log('Current Page:', this.currentPage); // Log the current page to verify it's being updated correctly
+  //   this.updateDisplayedContacts();
+  // }
+
+
+  // onPageSizeChange(pageSize: number) {
+  //   this.pageSize = pageSize;
+  //   this.currentPage = 1; // Reset to page 1 when changing page size
+  //   this.updateDisplayedContacts();
+  // }
+
+
+
+// }
+
+  
+  
+  // export class ContactDataSource extends DataSource<Contact> {
+//   private dataSubject = new BehaviorSubject<Contact[]>([]);
+
+//   constructor(private contactDatabase: ContactDatabase) {
+//     super();
+//   }
+
+//   connect(): Observable<Contact[]> {
+//     return this.dataSubject.asObservable();
+//   }
+
+//   disconnect() { }
+
+//   // Add additional methods if needed
+// }
+
+

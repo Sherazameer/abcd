@@ -1,0 +1,354 @@
+
+===> search pop filters
+
+01
+user-service.ts file
+
+    get_UserList(tenant: number = 0, filter: string | null = null): Promise<User[]> {
+    const headers = new Headers();
+    this.app_service.createAuthorizationHeader(headers);
+    const options = new RequestOptions({ headers: headers}); 
+    
+    var url = (tenant == 0) ? `${this.app_service.apiUrlUsers}` : `${this.app_service.apiUrlUsers}?tenant_id=${tenant}`; 
+    if (filter) {
+      var url = (tenant == 0) ? `${this.app_service.apiUrlUsers}?${filter}` : `${this.app_service.apiUrlUsers}?tenant_id=${tenant}&${filter}`;
+  }
+    return this.http.get(url, options).toPromise()
+    .then(response => response.json() as User[]).catch(response => this.app_service.handleError(response));
+  }
+  ============================================================
+  
+user-component.ts file
+  openSearchModal(searchTemplate) {
+      const modalRef = this.modalService.open(searchTemplate);
+      modalRef.result.then(
+        (result) => {
+        },
+        (reason) => {
+        }
+      );
+    }
+
+    searchUsers(modal) {
+      const tenant = this.is_admin == 1 ? 0 : this.auser.tenant_id;    
+      let filter = '';
+      if (this.key === 'first_name') {
+        filter = `first_name=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'last_name') {
+        filter = `last_name=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'username') {
+        filter = `username=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'email') {
+        filter = `email=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'phone') {
+        filter = `phone=${encodeURIComponent(this.search)}`;
+      }
+      this.user_service.get_UserList(tenant, filter).then(data => {
+        this.length = data.length;
+        this.aUser = new UserDataSource(new UserDatabase(data), this.sort, this.paginator);
+        modal.close();
+      }).catch(err => {
+        console.error("Error during search:", err);
+        modal.close();
+      });
+    }
+    =================================================
+    user-component.html file
+    
+      <button type="button" mat-raised-button color="primary" style="font-size:15px; margin-right: 10px;" 
+    (click)="openSearchModal(searchTemplate)"><i class="fa fa-search"></i> Search</button>
+    
+    
+<ng-template #searchTemplate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ 'User.search' | translate }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input type="text"
+      [(ngModel)]="search" class="form-control"
+      placeholder="{{ 'user.filter' | translate }}"/>
+    <select [(ngModel)]="key" class="form-control mt-2">  
+      <option value="" disabled hidden>Select Type Search</option>
+      <option value="first_name">First Name</option>
+      <option value="last_name">Last Name</option>
+      <option value="username">Username</option>
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" mat-raised-button color="primary" style="font-size:15px" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" mat-raised-button color="primary" style="font-size:15px" (click)="searchUsers(modal)">Search</button> 
+  </div>
+</ng-template>
+    
+=====================================================
+02
+  // get_DIDList() {
+    get_DIDList(filter=null) {
+    const headers = new Headers();
+    this.app_service.createAuthorizationHeader(headers);
+    const options = new RequestOptions({ headers: headers});
+    // const getUrl = `${this.app_service.apiUrlDid}`;
+    let getUrl = `${this.app_service.apiUrlDid}`;
+    if(filter){
+      getUrl =  `${this.app_service.apiUrlDid}?${filter}`;
+    }
+    return this.http.get(getUrl, options).toPromise()
+    .then(response => response.json() as DID[]).catch(response => this.app_service.handleError(response));
+  }
+====================================================
+  // getDIDlist(filter=null) {
+  //   this.did_service.get_DIDList(filter).then(data => {
+  //     this.length = data.length;
+  //     this.data = data;
+  //     this.getUserlist();
+  //   });
+  // }
+  getDIDlist(filter = null): Promise<void> {
+    return this.did_service.get_DIDList(filter).then(data => {
+      this.length = data.length;
+      this.data = data;
+      return this.getUserlist(); // Ensure this function also returns a Promise if it's asynchronous.
+    });
+  }
+  
+
+  
+//   findDID(){
+//     var filter = '';
+//     filter += `${this.key}=${this.search}`;
+//     this.getDIDlist(filter);
+// }
+
+resetsearch(){
+  this.getDIDlist();
+}
+
+
+openSearchModal(searchTemplate_Did) {
+  const modalRef = this.modalService.open(searchTemplate_Did);
+  modalRef.result.then(
+      (result) => {},
+      (reason) => {}
+  );
+}
+
+searchDid(modal) {
+  let filter = '';
+  // Determine the filter based on the selected key
+  if (this.key === 'first_name') {
+      filter = `first_name=${encodeURIComponent(this.search)}`;
+  } else if (this.key === 'phone') {
+      filter = `phone=${encodeURIComponent(this.search)}`;
+  }
+
+  // Call getDIDlist with the constructed filter
+  this.getDIDlist(filter).then(data => {
+      // Close the modal after successfully fetching the data
+      modal.close();
+  }).catch(err => {
+      console.error("Error during search:", err);
+      // Close the modal even if there was an error
+      modal.close();
+  });
+}
+
+=====================================
+
+
+
+   <button type="button" mat-raised-button color="primary" style="font-size:15px; margin-right: 10px;" 
+    (click)="openSearchModal(searchTemplate_Did)"><i class="fa fa-search"></i> Search</button>
+
+<ng-template #searchTemplate_Did let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ 'Did.search' | translate }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input
+    class="form-control"
+    type="text"
+    [(ngModel)]="search"
+    placeholder="Search DID"
+  />  
+      <select [(ngModel)]="key" class="form-control mt-2">  
+      <option value="" disabled hidden>Select Type Search</option>
+      <option value="phone">DID Number</option>
+      <option value="first_name">Title</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="mr-2" mat-raised-button color="primary" style="font-size:15px;" (click)="resetsearch()"> Reset</button>
+    <button type="button" mat-raised-button color="primary" (click)="searchDid(modal)">Search</button> 
+  </div>
+</ng-template>
+======================================================
+03
+this is incoming_number-component.ts
+    
+    getAllList(filter = null) {
+     return this.did_service.get_DIDList(filter).then(response => {
+      this.length = response.length;
+      this.data = response;
+      this.aNumbers = new IncomingNumberDataSource(new IncomingNumberDatabase( response ), this.sort, this.paginator);
+      this.getUserlist();
+    });
+  }
+resetsearch(){
+this.getAllList();
+}
+openSearchModal(searchTemplate_IncomingNumber) {
+  const modalRef = this.modalService.open(searchTemplate_IncomingNumber);
+  modalRef.result.then(
+      (result) => {},
+      (reason) => {}
+  );
+}
+search_IncomingNumber(modal) {
+  let filter = '';
+  if (this.key === 'first_name') {
+      filter = `first_name=${encodeURIComponent(this.search)}`;
+  } else if (this.key === 'phone') {
+      filter = `phone=${encodeURIComponent(this.search)}`;
+  }
+  this.getAllList(filter).then(data => {
+      modal.close();
+  }).catch(err => {
+      console.error("Error during search:", err);
+      modal.close();
+  });
+}
+===================================================================
+this is incoming_number-component.html
+
+    <button class="mb-3" type="button" mat-raised-button color="primary" style="font-size:15px; margin-right: 10px;" 
+    (click)="openSearchModal(searchTemplate_IncomingNumber)"><i class="fa fa-search"></i> Search</button>
+<ng-template #searchTemplate_IncomingNumber let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ 'Did.search' | translate }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input
+    class="form-control"
+    type="text"
+    [(ngModel)]="search"
+    placeholder="Search DID"
+  />  
+      <select [(ngModel)]="key" class="form-control mt-2">  
+      <option value="" disabled hidden>Select Type Search</option>
+      <option value="phone">DID Number</option>
+      <option value="first_name">Title</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="mr-2" mat-raised-button color="primary" style="font-size:15px;" (click)="resetsearch()"> Reset</button>
+    <button type="button" mat-raised-button color="primary" (click)="search_IncomingNumber(modal)">Search</button> 
+  </div>
+</ng-template>
+==========================================================================
+04
+this is tenant-component.ts file
+
+  getTenantlist(filter: string | null = null): Promise<void> {
+    return this.tenant_service.get_TenantList(filter).then(data => {
+        this.length = data.length;
+        this.aTenant = new TenantDataSource(new TenantDatabase(data), this.sort, this.paginator);
+
+        // Sort the data automatically
+        const sortState: Sort = { active: 'ID', direction: 'desc' };
+        this.sort.active = sortState.active;
+        this.sort.direction = sortState.direction;
+        this.sort.sortChange.emit(sortState);
+
+        // Observable for the filter
+        fromEvent(this.filter.nativeElement, 'keyup')
+            .pipe(debounceTime(150), distinctUntilChanged())
+            .subscribe(() => {
+                if (!this.aTenant) { return; }
+                this.aTenant.filter = this.filter.nativeElement.value;
+            });
+    });
+}
+
+  openSearchModal(searchTemplate_Tenant) {
+    const modalRef = this.modalService.open(searchTemplate_Tenant);
+    modalRef.result.then(
+      (result) => {
+      },
+      (reason) => {
+      }
+    );
+  }
+
+ 
+ searchTenant(modal) {
+  let filter = '';
+  if (this.key === 'first_name') {
+      filter = `first_name=${encodeURIComponent(this.search)}`;
+  } else if (this.key === 'last_name') {
+      filter = `last_name=${encodeURIComponent(this.search)}`;
+  } else if (this.key === 'email') {
+      filter = `email=${encodeURIComponent(this.search)}`;
+  } else if (this.key === 'phone') {
+      filter = `phone=${encodeURIComponent(this.search)}`;
+  }
+  this.getTenantlist(filter).then(data => {
+      modal.close();
+  }).catch(err => {
+      console.error("Error during search:", err);
+      modal.close();
+  });
+}
+=================================================
+this is tenant.service.ts file
+  get_TenantList(filter = null): Promise<Tenant[]> {
+    const headers = new Headers();
+    this.app_service.createAuthorizationHeader(headers);
+    const options = new RequestOptions({ headers: headers });
+    let url = `${this.app_service.apiUrlTenants}`;
+    if(filter){
+      url =  `${this.app_service.apiUrlTenants}?${filter}`;
+    }
+    return this.http.get(url, options).toPromise()
+        .then(response => response.json() as Tenant[])
+        .catch(response => this.app_service.handleError(response));
+}
+=================================================
+html part
+    <button type="button" mat-raised-button color="primary" style="font-size:15px; margin-right: 10px;" 
+    (click)="openSearchModal(searchTemplate_Tenant)"><i class="fa fa-search"></i> Search</button>
+    
+    
+<ng-template #searchTemplate_Tenant let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ 'Tenant.search' | translate }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input type="text" [(ngModel)]="search" class="form-control" placeholder="{{ 'tenant.filter' | translate }}"/>
+    <select [(ngModel)]="key" class="form-control mt-2">  
+      <option value="" disabled hidden>Select Type Search</option>
+      <option value="first_name">First Name</option>
+      <option value="last_name">Last Name</option>
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" mat-raised-button color="primary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" mat-raised-button color="primary" (click)="searchTenant(modal)">Search</button> 
+  </div>
+</ng-template>
+

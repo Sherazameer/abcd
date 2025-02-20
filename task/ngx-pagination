@@ -1,0 +1,275 @@
+  pageSizeOptions = [5, 10, 25, 50];  // Options for the page size dropdown
+  pageSize = 5;  // Default page size
+  currentPage = 1;  // Current page number
+  totalItems: number;  // Total number of items in the data
+
+
+
+
+  @ViewChild('contactPagination', {static: false}) paginationControls: any;
+
+  getContactlist(page: number = 1, size: number = this.pageSize) {
+    this.contact_service.get_ContactList().then(data => {
+      this.totalItems = data.length;  // Set total items
+      // this.ContactDataSource = this.dataSourceBuilder.create(data.map(item => ({ data: item })));
+
+      // Slice the data according to the current page and page size
+      const start = (page - 1) * size;
+      const end = Math.min(start + size, data.length);
+      const slicedData = data.slice(start, end);
+
+      // Log the sliced data for debugging
+      console.log('Sliced data:', slicedData);
+
+      // Update the contactArray with paginated data
+      this.contactArray = slicedData;
+    });
+  }
+
+  // Event handler for page change
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.getContactlist(page, this.pageSize);
+  }
+
+  // Event handler for page size change
+  onPageSizeChange(pageSize: number) {
+    this.pageSize = pageSize;
+    this.currentPage = 1;  // Reset to first page when page size changes
+    this.getContactlist(1, pageSize);
+  }
+
+}
+
+
+
+
+<nb-card>
+  <nb-card-header>
+    {{ 'contact.list' | translate }}
+    <input nbInput fullWidth placeholder="{{ 'contact.filter' | translate }}" [(ngModel)]="filter" class="form-control cc" style="float:right">
+  </nb-card-header>
+
+  <nb-card-body>
+    <button type="button" mat-raised-button color="primary" style="font-size:15px"[routerLink]="['/pages/contact/contacts/new']"><i class="fa fa-plus"></i> {{ 'contact.add' | translate }}</button>
+    <br><br>
+
+
+    <div  class="example-container mat-elevation-z8">
+
+      <table [nbTreeGrid]="ContactDataSource">
+        <ng-container nbTreeGridColumnDef="Operations">
+          <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>{{ 'general.operations' | translate }}</th>
+          <td nbTreeGridCell *nbTreeGridCellDef="let contact">
+          <button mat-icon-button color="accent" style= "font-size:20px">
+            <mat-icon><a routerLink="/pages/contact/contacts/{{contact.data.contact_id}}"title="Edit"><nb-icon icon="edit-2-outline"></nb-icon></a></mat-icon></button><button mat-icon-button style="font-size:20px"(click)="showStaticModal(contact.data.contact_id, contact.first_name)"><mat-icon style="color:red"><nb-icon icon="trash-2-outline"></nb-icon></mat-icon></button><button mat-icon-button color="primary" style= "font-size:20px"><mat-icon (click)="open(content, contact.contact_id)"><nb-icon icon="paper-plane-outline" title="Send Fax"></nb-icon></mat-icon></button></td></ng-container>
+            <button mat-icon-button style="font-size:20px">
+              <mat-icon style="color:red" (click)="showStaticModal(contact.data.contact_id)">
+                <nb-icon icon="trash-2-outline"></nb-icon></mat-icon>
+              </button>
+              <button mat-icon-button color="primary" style= "font-size:20px">
+                <mat-icon (click)="open(content, contact.data.contact_id)" ><nb-icon icon="paper-plane-outline" title="Send Fax"></nb-icon></mat-icon>
+              </button>
+              <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="displayedColumns"></tr>
+              <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: displayedColumns"></tr>
+
+      </table>
+
+
+    <table>
+          <th>{{ 'general.ID' | translate }}</th>
+          <th>{{ 'contact.fname' | translate }}</th>
+          <th>{{ 'contact.lname' | translate }}</th>
+          <th>{{ 'contact.phone' | translate }}</th>
+          <th>{{ 'contact.email' | translate }}</th>
+          <th>{{ 'general.operations' | translate }}</th>
+        <tr *ngFor="let item of contactArray">
+          <td>{{ item.contact_id }}</td>
+          <td>{{ item.first_name }}</td>
+          <td>{{ item.last_name }}</td>
+          <td>{{ item.phone }}</td>
+          <td>{{ item.email }}</td>
+        </tr>
+    </table>
+
+      <div class="pagination" style="margin-top: 20px;">
+        <nb-select [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+          <nb-option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }} per page</nb-option>
+        </nb-select>
+
+        <pagination-controls
+          [(ngModel)]="currentPage"
+          (pageChange)="onPageChange($event)"
+          id="contactPagination"
+          previousLabel="Previous"
+          nextLabel="Next">
+        </pagination-controls>
+      </div>
+</div>
+    </nb-card-body>
+  </nb-card>
+  
+  
+  import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { ContactService } from './contact.service';
+import { ContactDatabase } from './contact-database.component';
+import { ContactDataSource } from './contact-datasource.component';
+import { ModalComponent } from '../../modal.component';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Rx';
+import { Contact } from './contact';
+import { NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
+
+
+
+@Component({
+  selector: 'ngx-contact-component',
+  templateUrl: './contact-component.html',
+  styleUrls: ['./contact-component.scss'],
+})
+
+
+
+
+export class FormsContactComponent implements OnInit {
+  constructor(private contact_service: ContactService,
+     private dataSourceBuilder: NbTreeGridDataSourceBuilder<Contact>,
+     private modalService: NgbModal,
+    ) { }
+
+
+
+  contact: any;
+  // pageSize: number = 5;
+  length: number = 10;
+  // pageSizeOptions: number[] = [5, 10, 25];  // Define pageSizeOptions as an array of numbers
+
+  closeResult: any;
+  contactArray: Contact[] =[]
+  ContactDataSource: NbTreeGridDataSource<Contact>;
+
+  private modalRef: NgbModalRef;
+  phone: number;
+
+
+
+  pageSizeOptions = [5, 10, 25, 50];  // Options for the page size dropdown
+  pageSize = 5;  // Default page size
+  currentPage = 1;  // Current page number
+  totalItems: number;  // Total number of items in the data
+
+
+  displayedColumns= ['ID', 'firstName'];
+
+
+  @ViewChild('contactPagination', {static: false}) paginationControls: any;
+
+  @ViewChild('filter', {static: false}) filter: ElementRef;
+
+
+  ngOnInit() {
+    this.getContactlist();
+
+  }
+
+
+  getContactlist(page: number = 1, size: number = this.pageSize) {
+    this.contact_service.get_ContactList().then(data => {
+      this.totalItems = data.length;  // Set total items
+      this.ContactDataSource = this.dataSourceBuilder.create(data.map(item => ({ data: item })));
+
+      // Slice the data according to the current page and page size
+      const start = (page - 1) * size;
+      const end = Math.min(start + size, data.length);
+      const slicedData = data.slice(start, end);
+
+      // Log the sliced data for debugging
+      console.log('Sliced data:', slicedData);
+
+      // Update the contactArray with paginated data
+      this.contactArray = slicedData;
+    });
+  }
+
+  // Event handler for page change
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.getContactlist(page, this.pageSize);
+  }
+
+  // Event handler for page size change
+  onPageSizeChange(pageSize: number) {
+    this.pageSize = pageSize;
+    this.currentPage = 1;  // Reset to first page when page size changes
+    this.getContactlist(1, pageSize);
+  }
+
+
+
+
+
+
+  // onPageSizeChange(pageSize: number) {
+  //   this.pageSize = pageSize;
+  //   console.log('pageSize data:', pageSize);
+
+  //   this.getContactlist(1, pageSize);
+  // }
+
+}
+
+
+//   getContactlist() {
+//     this.contact_service.get_ContactList().then(data => {
+//       this.contactArray = data; // Store the full dataset
+//       this.totalItems = data.length;
+//       this.updateDataSource(); // Initial data load
+//     });
+//   }
+
+//   //Recursive function to paginate the tree
+//   paginateTree(tree: Contact[], page: number, pageSize: number): Contact[] {
+//     const startIndex = (page - 1) * pageSize;
+//     let endIndex = startIndex + pageSize;
+//     let paginatedTree: Contact[] = [];
+//     let count = 0;
+
+//     function traverse(node: Contact) {
+//       if (count < endIndex) {
+//         paginatedTree.push(node);
+//         count++;
+//         if (node.children && node.children.length > 0) {
+//           node.children.forEach(child => traverse(child));
+//         }
+//       }
+//     }
+
+//     if (tree.length > 0) {
+//       tree.forEach(node => {
+//         if (count >= startIndex) {
+//           traverse(node);
+//         }
+//       });
+//     }
+
+//     return paginatedTree;
+//   }
+
+
+//   onPageChange(page: number) {
+//     this.currentPage = page;
+//     this.updateDataSource();
+//   }
+
+//   onPageSizeChange(pageSize: number) {
+//     this.pageSize = pageSize;
+//     this.currentPage = 1;
+//     this.updateDataSource();
+//   }
+
+//   updateDataSource() {
+//     const paginatedData = this.paginateTree(this.contactArray, this.currentPage, this.pageSize);
+//     this.ContactDataSource = this.dataSourceBuilder.create(paginatedData.map(item => ({ data: item })));
+//   }
+// }
+

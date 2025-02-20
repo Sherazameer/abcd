@@ -1,0 +1,106 @@
+ts part file
+  
+pageSize: number = 25; 
+  startIndex: number = 0; 
+  currentPage: number = 1; 
+  totalPages: number = 0; 
+  items_page: number[] = [25]; 
+  minimumItems: number = 0; 
+ 
+  open(content , userid) {
+    this.showActivityModal(userid);
+    
+      this.modalRef = this.modalService.open(content, { size: 'lg' });
+  
+
+    this.modalRef.result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
+  onSave() {
+    this.modalRef.close();
+    this.activityarray = [];
+  }
+
+  showActivityModal(userid) {
+    this.loading = true;
+    this.user_service.getActivity(userid).then(response => {
+      this.activityarray = response;
+      this.length = response.length;
+      this.paginate(this.pageSize);
+      this.loading = false; 
+    })
+    .catch(err => {
+      this.handleError(err);
+      this.loading = false; 
+    });
+  }
+
+  paginate(page_items: string | number) {
+    if (typeof page_items === 'string') {
+      if (page_items === 'next') {
+        if (this.startIndex + this.pageSize < this.length) {
+          this.startIndex += this.pageSize;
+        }
+      } else if (page_items === 'previous') {
+        if (this.startIndex > 0) {
+          this.startIndex -= this.pageSize; 
+        }
+      }
+    } else {
+      this.pageSize = page_items;
+      this.startIndex = 0;  
+    }  
+    this.currentPage = Math.floor(this.startIndex / this.pageSize) + 1;
+    this.totalPages = Math.ceil(this.length / this.pageSize);
+    this.minimumItems = Math.min(this.startIndex + this.pageSize, this.length);
+  }
+=================================================================
+html part 
+<ng-template id="ngtemplate" #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Activities</h4>
+    <button type="button" class="close" aria-label="Close" (click)="onSave()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body custom-modal">
+    <table>
+      <tr>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>Activity</th>
+        <th>IP</th>
+        <th>Date</th>
+      </tr>
+      <tr *ngFor="let activity of activityarray.slice(startIndex, startIndex + pageSize); let i = index">
+        <td>{{ activity.user_id }}</td>
+        <td>{{ activity.username }}</td>
+        <td class="activity-column">{{ activity.activities }}</td>
+        <td>{{ activity.ip_address }}</td>
+        <td>{{ activity.date * 1000 | date : "yyyy-MM-dd HH:mm:ss a" }}</td>
+      </tr>
+    </table>
+    <ng-container *ngIf="loading">
+    </ng-container>
+    <p *ngIf="activityarray.length === 0">
+      Empty
+    </p>
+
+    <div style="padding: 30px; display: flex; justify-content: flex-end;">
+      <!-- <span style="text-align: center; padding-top: 10px;">Items per page: &nbsp;&nbsp;</span> -->
+      <!-- <select [(ngModel)]="pageSize" (ngModelChange)="paginate($event)">
+        <option *ngFor="let option of items_page" [value]="option">{{ option }}</option>
+      </select> -->
+      <div style="padding-top: 10px;">
+        <nb-icon style="margin: 0 25px;" icon="arrowhead-left-outline" (click)="startIndex > 0 ? paginate('previous') : null" [ngClass]="{'disabled-icon': startIndex === 0}"></nb-icon>  
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <nb-icon style="margin: 0 25px;" icon="arrowhead-right-outline" (click)="startIndex + pageSize < length ? paginate('next') : null" [ngClass]="{'disabled-icon': startIndex + pageSize >= length}"></nb-icon>
+        <span *ngIf="length > 0"> 
+          | Showing {{ startIndex + 1 }} - {{ minimumItems }} of {{ length }} items
+        </span>
+      </div>
+    </div>
+  </div>
+</ng-template>

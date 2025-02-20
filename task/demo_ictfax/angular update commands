@@ -1,0 +1,75 @@
+
+git clone https://github.com/ictinnovations/ictfax.git
+
+This command installs exactly the versions specified in your package-lock.json and will not update any package. It’s useful for CI/CD pipelines and provides a consistent environment.
+ current -v use ---> npm ci
+
+npm uninstall typescript@">=4.6.2 <4.9.0" --save-dev
+npm install echarts@5.4.0 ngx-echarts@18.0.0 --save
+
+npm install typescript@5.4.5
+ npx npm-check-updates -u do not use
+ ncu do not use
+
+ ncu -u do not use 
+
+npm run clean
+npm update
+npm install @angular/animations@latest
+npm start
+rm -rf node_modules package-lock.json
+npm uninstall node-sass
+npm install sass
+
+locate webpack.config.js
+npm update @nebular/eva-icons eva-icons ngx-echarts
+
+npm install ng2-file-upload@latest
+npm install ng2-completer@latest
+npm install ng2-pdf-viewer@latest --save
+npm install ngx-extended-pdf-viewer --save
+
+npm view ng2-file-upload version
+npm install ngx-echarts@16.2.0
+
+
+npm install @ngx-translate/core@latest @ngx-translate/http-loader@latest
+npm list @ngx-translate/core
+npm install @angular/material@^16.2.3 --save
+npm install @angular/animations@16.2.12 --save
+npm install @angular/animations@16.1.8 --save
+npm install @angular/cdk@^16.2.3 --save
+
+npm install bootstrap@latest --save
+
+npm install @nebular/theme bootstrap
+
+npm install @nebular/theme@14.0.0 --save
+npm list @angular/animations
+npm list @angular/http
+npm list @nebular/theme
+npm list
+ npm install sass-loader
+npm install zone.js@0.13.3 --save
+
+npm install @swimlane/ngx-charts@latest
+npm install @ng-bootstrap/ng-bootstrap@latest
+npm list @angular/forms @angular/cdk @angular/material @ng-bootstrap/ng-bootstrap @swimlane/ngx-charts
+
+npm install --legacy-peer-deps
+npm install -g @angular/cli@18
+
+npm list @angular/forms
+npm install @angular/forms@16.2.12 @angular/material@16.2.x 
+npm install @angular/cdk@16.2.x @angular/router@16.2.x
+
+npm list @angular/forms @angular/cdk @angular/material @nebular/auth
+npm install @angular/cdk@15.2.9 @angular/material@15.2.9 @nebular/theme@11.0.1
+npm install @angular/forms@15.2.9 @angular/cdk@15.2.9 @angular/material@15.2.9
+
+npm list @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic @angular/animations @angular/forms @angular/router @angular/material @angular/cdk @nebular/theme
+
+
+
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+

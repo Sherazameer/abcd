@@ -1,0 +1,47 @@
+import { NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrService, NbToastRef } from '@nebular/theme';
+
+
+   index: number = 0;
+    positions = NbGlobalPhysicalPosition;
+    notifications: string[] = ["No 1", "No 2", "No 3", "No 4","No 5"];
+    notificationsShown: boolean = false; 
+    toastRefs: NbToastRef[] = []; 
+    timerId: any; 
+
+
+    showAllToasts(position: NbGlobalPosition) {
+      if (!this.notificationsShown) {
+        this.notifications.forEach(notification => {
+          const toastRef = this.toastrService.show(
+            notification,
+            `Toast #${this.index}`,
+            { position, duration: 100000 }
+          );
+          this.toastRefs.push(toastRef);
+        });
+        this.timerId = setTimeout(() => {
+          this.closeAllToasts(); 
+        }, 100000); 
+        this.notificationsShown = true; 
+      } else {
+        this.closeAllToasts();
+      }
+    }
+    closeAllToasts() {
+      this.toastRefs.forEach(toastRef => toastRef.close()); 
+      this.toastRefs = []; 
+      this.notificationsShown = false; 
+      clearTimeout(this.timerId);
+    }
+}
+
+==============html part==========================
+ <nb-actions size="small">
+
+      <nb-action icon="bell-outline"
+            (click)="showAllToasts(positions.BOTTOM_RIGHT)"
+
+                 badgeDot
+                 badgePosition="top right"
+                 badgeStatus="danger">
+      </nb-action>

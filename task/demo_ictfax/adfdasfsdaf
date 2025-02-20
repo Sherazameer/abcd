@@ -1,0 +1,169 @@
+import { NgModule, Component, EventEmitter, ElementRef, Input, Output, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { SendFaxService } from './sendfax.service';
+import { SendFax } from './sendfax';
+import { Http, RequestOptions, Headers } from '@angular/http';
+import { ContactService } from '../contact/contact.service';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/fromEvent';
+import { AppService } from '../../app.service';
+import { TransmissionService } from '../transmission/transmission.service';
+import { DocumentService } from '../message/document/document.service';
+import { NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
+
+
+@Component({
+  selector: 'ngx-sendfax-component',
+  templateUrl: './sendfax-component.html',
+  styleUrls: ['./sendfax-component.scss'],
+})
+
+export class FormsSendFaxComponent implements OnInit {
+  constructor(private sendfax_service: SendFaxService,
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<SendFax>,
+    private contact_service: ContactService, private http: Http,
+    private app_service: AppService, private documnet_service:DocumentService) { }
+  
+
+  aSendFax: SendFax[];
+  SendFaxDataSource: NbTreeGridDataSource<SendFax>;
+
+  public length: number;
+
+  private timerSubscription: any;
+
+  // private storageKey = 'getFaxlist';
+
+  displayedColumns= ['transmission_id', 'phone', 'Timestamp', 'username','status', 'Operations'];
+
+
+
+
+  @ViewChild('filter', {static: false}) filter: ElementRef;
+
+
+  async ngOnInit() {
+    const cachedData = await this.getFaxlistFromCache(); //Reads data from the cache.
+    if (cachedData) {
+    this.setDataSource(cachedData);
+      // this.aSendFax = cachedData.sort((a, b) => b.transmission_id - a.transmission_id);
+      // this.SendFaxDataSource = this.dataSourceBuilder.create(
+      //   this.aSendFax.map(item => ({ data: item }))
+      // );
+    } 
+    // else {
+    //   await this.getFaxlist(); //  Fetches data from the server and stores it in the cache.
+    //   const newCachedData = await this.getFaxlistFromCache(); //Reads data from the cache.
+    //   if (newCachedData) {
+    //         this.setDataSource(newCachedData);
+    //     // this.aSendFax = newCachedData.sort((a, b) => b.transmission_id - a.transmission_id);
+    //     // this.SendFaxDataSource = this.dataSourceBuilder.create( this.aSendFax.map(item => ({ data: item }))
+    //     // );
+    //   }
+    // }
+  }
+
+  // async ngOnInit() {
+  //   let cachedData = await this.getFaxlistFromCache();
+  //   if (!cachedData) {
+  //     await this.getFaxlist();
+  //     // cachedData = await this.getFaxlist();
+  //     cachedData = await this.getFaxlistFromCache();
+  //   }
+  //   this.setDataSource(cachedData);
+  // }
+
+
+
+    // Fetches data from the server and stores it in the cache.
+    async getFaxlist() {
+      try {
+        const data = await this.sendfax_service.get_OutFaxTransmissionList();
+        this.aSendFax = data.sort((a, b) => b.transmission_id - a.transmission_id);
+        this.length = data.length;
+  
+        // Create a response object
+        const response = new Response(JSON.stringify(data), {
+          headers: { 'Content-Type': 'application/json' },
+        });
+  
+        // Open a cache and store the response
+        const cache = await caches.open('fax-cache');
+        const request = new Request('/faxlist');
+        await cache.put(request, response);
+  
+        console.log('Data saved to cache successfully');
+      } catch (error) {
+        console.error('Error fetching fax list:', error);
+      }
+    }
+  
+ // Reads data from the cache.
+  async getFaxlistFromCache() {
+    const cache = await caches.open('fax-cache');
+    const request = new Request('/faxlist');
+    const response = await cache.match(request);
+    console.log('Exist data read from cache');
+
+    if (response) {
+      const data = await response.json();
+      return data;
+    }
+    return null;
+  }
+
+  setDataSource(data: SendFax[]) {
+    if (data) {
+      this.aSendFax = data.sort((a, b) => b.transmission_id - a.transmission_id);
+      this.SendFaxDataSource = this.dataSourceBuilder.create(
+        this.aSendFax.map(item => ({ data: item }))
+      );
+    }
+  }
+
+
+
+
+
+
+
+
+  
+  downloadDocument(document_id){
+    this.documnet_service.get_Documentdownload(document_id);
+  }
+  deleteDocument(transmission_id){
+this.sendfax_service.delete_Document(transmission_id)
+  }
+
+
+
+
+}
+
+
+
+  getInFaxList() {
+    const origin = 'faxtoemail';
+  
+    this.infax_service.get_InFaxTransmissionList().then(data => {
+      this.aInFax = data
+        .filter(fax => fax.direction === 'inbound' && fax.status === 'completed' && fax.origin === origin) // Add origin filter here
+        .sort((a, b) => b.transmission_id - a.transmission_id);
+      
+      this.length = this.aInFax.length;
+      
+      this.aInFax.forEach(element => {
+        if (element.contact_phone == null) {
+          element.contact_phone = 'N/A';
+        }
+      });
+      
+      this.paginate(this.pageSize);
+      this.InFaxDataSource = this.dataSourceBuilder.create(this.current_items.map(item => ({ data: item })));
+      console.log('check data infax===>', this.current_items);
+    });    
+  }s

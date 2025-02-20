@@ -1,0 +1,113 @@
+
+// Authorization will provide JWT Token which we will be use in every Api
+Request URL:
+http://45.32.85.216/api/authenticate
+Request Method:
+POST
+"email" : email,
+"password" : password
+Response : 
+authToken
+====================================================
+
+// Create New Document 
+Request URL:
+http://45.32.85.216/api/documents
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+POST
+"name" : document_name,
+"quality" : standard
+Response: 
+document_id
+====================================================
+
+// Upload Document File
+Request URL:
+http://45.32.85.216/api/documents/document_id/media
+headers:
+"Authorization:  Bearer " . authToken
+Content-Type: "text/plain;charset=UTF-8"
+Request Method:
+POST
+Body: <binary content of the file>
+Response: 
+document_id
+====================================================
+
+// Create Contact
+Request URL:
+http://45.32.85.216/api/contacts
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+POST
+"phone" : phone
+Response:
+Contact_id
+====================================================
+
+// Start Transmission from Program Creation
+Request URL:
+http://45.32.85.216/api/programs/sendfax
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+POST
+"document_id" : document_id
+Response:
+program_id
+====================================================
+
+
+// This will create Transmission
+Request URL:
+http://45.32.85.216/api/transmissions
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+POST
+
+  "title": title,
+  "origin": "sendfax",
+  "contact_id": contact_id,
+  "account_id": account_id,
+  "service_flag:  1 (number) - Type of transmission service i.e Email::SERVICE_FLAG or Voice": ":SERVICE_FLAG",
+  "program_id": program_id,
+  "direction": "outbound",
+  "status": "status",
+  "response": "response"
+=======================================================
+
+
+// This will send transmission after finalize everything
+Request URL:
+http://45.32.85.216/api/transmissions/transmissions_id/send
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+POST
+================================================
+
+
+// This is used to get Your all Transmissions of outbound
+Request URL:
+http://45.32.85.216/api/transmissions?service_flag=2&direction=outbound
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+GET
+
+==============================================================================
+Request URL:
+
+
+
+// This is used to get Your all Transmissions of inbound
+https://demo.ictfax.com/api/transmissions?$service_flag=2&status=completed&origin=faxtoemail
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+GET
+

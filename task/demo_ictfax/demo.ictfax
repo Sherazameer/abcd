@@ -1,0 +1,74 @@
+ssh root@45.76.8.125
+password: 3$Kb_EBiAmoQn$jD
+
+
+66.42.90.19
+root / Jw@7i=RErSAEc@4t
+
+API_URL: 'https://demo.ictfax.com/api',
+
+
+  API_URL: 'http://66.42.90.19:80/api',
+
+
+sudo nano /usr/ictfax/.htaccess
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
+
+
+	sudo nano /etc/apache2/sites-available/000-default.conf
+	sudo nano /etc/apache2/apache2.conf
+
+
+
+root@Ubuntu:/usr/ictcore/wwwroot# ls -a
+.  ..  gateway.php  .htaccess  index.php  test.php
+
+
+          <pre>
+/etc/apache2/
+|-- apache2.conf
+|       `--  ports.conf
+|-- mods-enabled
+|       |-- *.load
+|       `-- *.conf
+|-- conf-enabled
+|       `-- *.conf
+|-- sites-enabled
+|       `-- *.conf
+          </pre>
+          
+          local machine copy to move server
+scp -r /home/ictvision/angular/ictfax-13/ictfax/dist root@66.42.90.19:/usr/
+scp /home/ictvision/angular/ictfax-13/ictfax/dist.zip root@66.42.90.19:/usr/
+
+
+server folder copy to move system
+scp -r root@66.42.90.19:/usr/ictfax-sourcecode /home/ictvision/angular/
+       vs
+scp -r /home/ictvision/angular/ictfax-13/ictfax/ dist.zip root@66.42.90.19:/usr/ 
+
+
+tail -f /var/log/apache2/error.log  /var/log/mail.log /usr/ictcore/log/ictcore.log  /var/log/cron.log
+
+
+convert /tmp/documentICr3Dx.png /tmp/documentICr3Dx.pdf
+which convert
+
+sudo apt install imagemagick-6.q16
+sudo apt install graphicsmagick-imagemagick-compat
+sudo apt install imagemagick
+sudo apt-get install ghostscript
+df -h /tmp
+
+root@ictfax-testing:/# convert --version
+Command 'convert' not found, but can be installed with:
+apt install graphicsmagick-imagemagick-compat  # version 1.4+really1.3.42-1, or
+apt install imagemagick-6.q16                  # version 8:6.9.11.60+dfsg-1.6ubuntu1
+apt install imagemagick-6.q16hdri              # version 8:6.9.11.60+dfsg-1.6ubuntu1
+

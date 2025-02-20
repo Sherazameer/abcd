@@ -1,0 +1,53 @@
+// Authorization will provide JWT Token which we will be use in every Api
+Request URL:
+http://45.32.85.216/api/authenticate
+Request Method:
+POST
+"email" : email,
+"password" : password
+Response : 
+authToken
+====================================================
+
+
+// Assign DID
+Request URL:
+https://demo.ictfax.com/api/accounts/account_id/users/user_id
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+PUT
+"user_id" : user_id
+========================================================================
+
+
+// Fetch All DIDs
+Request URL:
+https://demo.ictfax.com/api/dids
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+GET
+=====================
+
+
+// Forward DID
+=====================================
+Request URL:
+https://demo.ictfax.com/api/accounts/account_id
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+PUT 
+"email" : email
+===================================
+
+
+Request URL:
+http://45.32.85.216/api/documents/document_id/media
+headers:
+"Authorization:  Bearer " . authToken
+Request Method:
+GET
+
+

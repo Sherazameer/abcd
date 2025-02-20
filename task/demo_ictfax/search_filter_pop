@@ -1,0 +1,85 @@
+
+
+user-service.ts file
+
+    get_UserList(tenant: number = 0, filter: string | null = null): Promise<User[]> {
+    const headers = new Headers();
+    this.app_service.createAuthorizationHeader(headers);
+    const options = new RequestOptions({ headers: headers}); 
+    
+    var url = (tenant == 0) ? `${this.app_service.apiUrlUsers}` : `${this.app_service.apiUrlUsers}?tenant_id=${tenant}`; 
+    if (filter) {
+      var url = (tenant == 0) ? `${this.app_service.apiUrlUsers}?${filter}` : `${this.app_service.apiUrlUsers}?tenant_id=${tenant}&${filter}`;
+  }
+    return this.http.get(url, options).toPromise()
+    .then(response => response.json() as User[]).catch(response => this.app_service.handleError(response));
+  }
+  ============================================================
+  
+user-component.ts file
+  openSearchModal(searchTemplate) {
+      const modalRef = this.modalService.open(searchTemplate);
+      modalRef.result.then(
+        (result) => {
+        },
+        (reason) => {
+        }
+      );
+    }
+
+    searchUsers(modal) {
+      const tenant = this.is_admin == 1 ? 0 : this.auser.tenant_id;    
+      let filter = '';
+      if (this.key === 'first_name') {
+        filter = `first_name=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'last_name') {
+        filter = `last_name=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'username') {
+        filter = `username=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'email') {
+        filter = `email=${encodeURIComponent(this.search)}`;
+      } else if (this.key === 'phone') {
+        filter = `phone=${encodeURIComponent(this.search)}`;
+      }
+      this.user_service.get_UserList(tenant, filter).then(data => {
+        this.length = data.length;
+        this.aUser = new UserDataSource(new UserDatabase(data), this.sort, this.paginator);
+        modal.close();
+      }).catch(err => {
+        console.error("Error during search:", err);
+        modal.close();
+      });
+    }
+    =================================================
+    user-component.html file
+    
+      <button type="button" mat-raised-button color="primary" style="font-size:15px; margin-right: 10px;" 
+    (click)="openSearchModal(searchTemplate)"><i class="fa fa-search"></i> Search</button>
+    
+    
+<ng-template #searchTemplate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ 'User.search' | translate }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input type="text"
+      [(ngModel)]="search" class="form-control"
+      placeholder="{{ 'user.filter' | translate }}"/>
+    <select [(ngModel)]="key" class="form-control mt-2">  
+      <option value="" disabled hidden>Select Type Search</option>
+      <option value="first_name">First Name</option>
+      <option value="last_name">Last Name</option>
+      <option value="username">Username</option>
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" mat-raised-button color="primary" style="font-size:15px" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" mat-raised-button color="primary" style="font-size:15px" (click)="searchUsers(modal)">Search</button> 
+  </div>
+</ng-template>
+    

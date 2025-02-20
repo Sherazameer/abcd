@@ -1,0 +1,103 @@
+
+  // get_DIDList() {
+    get_DIDList(filter=null) {
+    const headers = new Headers();
+    this.app_service.createAuthorizationHeader(headers);
+    const options = new RequestOptions({ headers: headers});
+    // const getUrl = `${this.app_service.apiUrlDid}`;
+    let getUrl = `${this.app_service.apiUrlDid}`;
+    if(filter){
+      getUrl =  `${this.app_service.apiUrlDid}?${filter}`;
+    }
+    return this.http.get(getUrl, options).toPromise()
+    .then(response => response.json() as DID[]).catch(response => this.app_service.handleError(response));
+  }
+====================================================
+  // getDIDlist(filter=null) {
+  //   this.did_service.get_DIDList(filter).then(data => {
+  //     this.length = data.length;
+  //     this.data = data;
+  //     this.getUserlist();
+  //   });
+  // }
+  getDIDlist(filter = null): Promise<void> {
+    return this.did_service.get_DIDList(filter).then(data => {
+      this.length = data.length;
+      this.data = data;
+      return this.getUserlist(); // Ensure this function also returns a Promise if it's asynchronous.
+    });
+  }
+  
+
+  
+//   findDID(){
+//     var filter = '';
+//     filter += `${this.key}=${this.search}`;
+//     this.getDIDlist(filter);
+// }
+
+resetsearch(){
+  this.getDIDlist();
+}
+
+
+openSearchModal(searchTemplate_Did) {
+  const modalRef = this.modalService.open(searchTemplate_Did);
+  modalRef.result.then(
+      (result) => {},
+      (reason) => {}
+  );
+}
+
+searchDid(modal) {
+  let filter = '';
+  // Determine the filter based on the selected key
+  if (this.key === 'first_name') {
+      filter = `first_name=${encodeURIComponent(this.search)}`;
+  } else if (this.key === 'phone') {
+      filter = `phone=${encodeURIComponent(this.search)}`;
+  }
+
+  // Call getDIDlist with the constructed filter
+  this.getDIDlist(filter).then(data => {
+      // Close the modal after successfully fetching the data
+      modal.close();
+  }).catch(err => {
+      console.error("Error during search:", err);
+      // Close the modal even if there was an error
+      modal.close();
+  });
+}
+
+=====================================
+
+
+
+   <button type="button" mat-raised-button color="primary" style="font-size:15px; margin-right: 10px;" 
+    (click)="openSearchModal(searchTemplate_Did)"><i class="fa fa-search"></i> Search</button>
+
+<ng-template #searchTemplate_Did let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ 'Did.search' | translate }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input
+    class="form-control"
+    type="text"
+    [(ngModel)]="search"
+    placeholder="Search DID"
+  />  
+      <select [(ngModel)]="key" class="form-control mt-2">  
+      <option value="" disabled hidden>Select Type Search</option>
+      <option value="phone">DID Number</option>
+      <option value="first_name">Title</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="mr-2" mat-raised-button color="primary" style="font-size:15px;" (click)="resetsearch()"> Reset</button>
+    <button type="button" mat-raised-button color="primary" (click)="searchDid(modal)">Search</button> 
+  </div>
+</ng-template>
