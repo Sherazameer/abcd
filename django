@@ -1,0 +1,47 @@
+python -m django --version
+django-admin startproject app
+python manage.py startapp ekan
+python manage.py makemigrations ekan
+python manage.py migrate
+python manage.py runserver
+python manage.py test
+python manage.py createsuperuser 
+
+
+
+pip install djangorestframework
+pip install djangorestframework-simplejwt
+pip install djangorestframework djangorestframework-simplejwt
+
+python manage.py dbshell
+.tables
+SELECT * FROM authtoken_token;
+sqlite3 db.sqlite3
+.mode csv
+.headers on
+.output output.csv
+SELECT * FROM auth_user;  -- or SELECT * FROM ekan_examplemodel;
+.output stdout
+
+
+{% expands 'base.html'%}
+
+{% block content %}
+
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+{% include "carousel.html" %}
+
+{% include "services.html" %}
+
+{% include "about.html" %}
+
+{% include "team.html" %}
+
+{% include "contact.html" %}
+
+{% include "footer.html" %}
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+version: '3.8'  # Specify the Compose file version
+services:       # Define the application services
+  web:          # A service named "web"
+    image: nginx:latest  # Use the latest nginx image
+    ports:              # Map host port to container port
+      - "80:80"         # Host port 80 maps to container port 80
+
+  db:           # A service named "db"
+    image: postgres:latest  # Use the latest postgres image
+    environment:            # Environment variables
+      POSTGRES_USER: sheraz
+      POSTGRES_PASSWORD: Godisone
+    volumes:               # Data persistence
+      - db_data:/var/lib/postgresql/data  # Use named volume
+
+networks:      # Define custom networks (optional)
+  default:
+    driver: bridge  # Use the bridge network driver
+
+volumes:       # Define named volumes (optional)
+  db_data: {}    # Named volume for persistent PostgreSQL data
+

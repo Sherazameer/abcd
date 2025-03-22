@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - CHokE_TYPE=docker # replace this environment variable with your own if needed
+

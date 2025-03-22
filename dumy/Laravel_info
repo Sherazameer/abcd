@@ -14,12 +14,15 @@ cd /opt/lampp && sudo ./manager-linux-x64.run
 
 php artisan make:controller TestingController --invokable
 php artisan make:controller TodoController 
+
 php artisan migrate
 php artisan migrate:status
 php artisan migrate --force
 php artisan migrate:rollback
 php artisan migrate --stap=2    ---->exampal id depend table 
 php artisan migrate --batch=3
+
+php artisan migrate:refresh && php artisan passport:install && php artisan serve
 
 php artisan migrate:reset    ---->not use this command 
 php artisan migrate:refresh
@@ -53,6 +56,12 @@ so will be use some file in home.blade.php and
 @include('pages.footer')
 cd /home/goodisone/learn/resources/views/
 
+composer show laravel/passport
 
-ssid zong4g-237d
-wifi key 60136179
+websocket
+php artisan websockets:serve
+composer require pusher/pusher-php-server
+npm install --save laravel-echo pusher-js
+php artisan make:event MessageSent
+php artisan serve
+npm run dev

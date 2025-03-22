@@ -1,3 +1,5 @@
+
+
 node -v
 npm -v
 sudo npm install -g @angular/cli
@@ -9,17 +11,8 @@ ng new learn  ---> install project
 ng serve --> run command
 ➜  Local:   http://localhost:4200/
 
-
-ictvision@192:~$ sudo code --no-sandbox --user-data-dir=/path/to/alternate/user/data/directory
-ictvision@192:~$ whoami
-ictvision
-ictvision@192:~$ groups username
-groups: ‘username’: no such user
-ictvision@192:~$ id -u
-1000
-
-  API_URL: 'https://demo.ictfax.com/api',
-
+ng generate component api/pass
+ng g c 
 
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash

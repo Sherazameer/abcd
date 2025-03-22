@@ -25,3 +25,5 @@ git restore
 git stash
 git stash pop
 git add core/Account.php
+
+git clean -fd
